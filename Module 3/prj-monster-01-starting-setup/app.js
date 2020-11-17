@@ -10,19 +10,39 @@ const app = Vue.createApp({
       currentRound: 0,
     };
   },
+  watch: {},
   methods: {
+    healPlayer() {
+      this.currentRound++;
+      this.playerHealth += getRandomHit(9, 16);
+      if (this.playerHealth > 100) {
+        this.playerHealth = 100;
+      }
+      this.attackPlayer();
+    },
     attackMonster() {
       this.currentRound++;
       this.monsterHealth -= getRandomHit(5, 12);
-      this.attackPlayer();
+      if (this.monsterHealth <= 0) {
+        this.monsterHealth = 0;
+      } else {
+        this.attackPlayer();
+      }
     },
     attackPlayer() {
       this.playerHealth -= getRandomHit(8, 15);
+      if (this.playerHealth < 0) {
+        this.playerHealth = 0;
+      }
     },
     specialAttack() {
       this.currentRound++;
       this.monsterHealth -= getRandomHit(10, 25);
-      this.attackPlayer();
+      if (this.monsterHealth <= 0) {
+        this.monsterHealth = 0;
+      } else {
+        this.attackPlayer();
+      }
     },
   },
   computed: {
