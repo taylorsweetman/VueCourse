@@ -17,20 +17,34 @@ const app = Vue.createApp({
 
 app.mount("#app");
 
-// ...
+const app2 = Vue.createApp({
+  data() {
+    return {
+      favoriteMeal: "Pizza"
+    };
+  },
+});
 
-const data = {
+app2.mount("#app2");
+
+// How Vue works is below
+
+/* const data = {
   message: "Hello",
+  longMessage: "Hello World",
 };
 
 const handler = {
   set(target, key, value) {
-    console.log(target);
-    console.log(key);
-    console.log(value);
+    if (key === "message") {
+      target.longMessage = value + " World";
+      target.message = value;
+    }
   },
 };
 
 const proxy = new Proxy(data, handler);
 
 proxy.message = "Taylor is cool";
+console.log(proxy.longMessage);
+console.log(proxy.message); */
