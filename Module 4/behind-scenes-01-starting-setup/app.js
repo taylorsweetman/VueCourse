@@ -13,6 +13,12 @@ const app = Vue.createApp({
       this.message = this.$refs.userText.value;
     },
   },
+  beforeCreate() {
+    console.log("beforeCreate()");
+  },
+  created() {
+    console.log("created()");
+  },
 });
 
 app.mount("#app");
