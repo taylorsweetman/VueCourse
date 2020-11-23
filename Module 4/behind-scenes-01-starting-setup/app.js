@@ -6,11 +6,11 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    saveInput(event) {
+    /* saveInput(event) {
       this.currentUserInput = event.target.value;
-    },
+    }, */
     setText() {
-      this.message = this.currentUserInput;
+      this.message = this.$refs.userText.value;
     },
   },
 });
@@ -18,9 +18,12 @@ const app = Vue.createApp({
 app.mount("#app");
 
 const app2 = Vue.createApp({
+  template: `
+    <p>{{ favoriteMeal }}</p>
+  `,
   data() {
     return {
-      favoriteMeal: "Pizza"
+      favoriteMeal: "Pizza",
     };
   },
 });
