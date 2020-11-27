@@ -3,18 +3,17 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <new-friend @add-contact="addContact"></new-friend>
     <ul>
       <friend-contact
-        name="Manuel Lorenz"
-        phone-number="123"
-        email-address="ml@localhost.com"
-        is-favorite="1"
-      ></friend-contact>
-      <friend-contact
-        name="Julie Jones"
-        phone-number="987"
-        email-address="jj@localhost.com"
-        is-favorite="0"
+        v-for="friend in friends"
+        :id="friend.id"
+        :key="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFav"
+        @toggle-fav="toggleFav"
       ></friend-contact>
     </ul>
   </section>
@@ -30,15 +29,34 @@ export default {
           name: "Manuel Lorenz",
           phone: "0123 45678 90",
           email: "manuel@localhost.com",
+          isFav: true,
         },
         {
           id: "julie",
           name: "Julie Jones",
           phone: "0987 654421 21",
           email: "julie@localhost.com",
+          isFav: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFav(id) {
+      const foundFriend = this.friends.find((friend) => friend.id === id);
+      foundFriend.isFav = !foundFriend.isFav;
+    },
+    addContact(name, phone, email) {
+      const newFriend = {
+        id: new Date().toISOString,
+        name: name,
+        phone: phone,
+        email: email,
+        isFav: false,
+      };
+
+      this.friends.push(newFriend);
+    },
   },
 };
 </script>
@@ -69,7 +87,8 @@ header {
   padding: 0;
   list-style: none;
 }
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -98,5 +117,18 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
