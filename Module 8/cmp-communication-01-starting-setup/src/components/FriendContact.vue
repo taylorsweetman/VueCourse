@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ isFavorite === "1" ? "(fav)" : "" }}</h2>
+    <h2>{{ name }} {{ friendIsFav === "1" ? "(Favorite)" : "" }}</h2>
     <button @click="toggleFav">Toggle Fav</button>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -20,7 +20,26 @@
 
 <script>
 export default {
-  props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
+  /* props: ["name", "phoneNumber", "emailAddress", "isFavorite"], */
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    emailAddress: {
+      type: String,
+      required: true,
+    },
+    isFavorite: {
+      type: String,
+      required: false,
+      default: '0',
+    },
+  },
   data() {
     return {
       detailsAreVisible: false,
@@ -30,6 +49,7 @@ export default {
         phone: this.phoneNumber,
         email: this.emailAddress,
       },
+      friendIsFav: this.isFavorite,
     };
   },
   methods: {
@@ -37,10 +57,10 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFav() {
-      if (this.isFavorite === "1") {
-        this.isFavorite = "0";
+      if (this.friendIsFav === "1") {
+        this.friendIsFav = "0";
       } else {
-        this.isFavorite = "1";
+        this.friendIsFav = "1";
       }
     },
   },
