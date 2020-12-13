@@ -1,14 +1,21 @@
+//https://firestore.googleapis.com/v1/projects/workout-app-e5db1/databases/(default)/documents/coaches/c1
+//https://firestore.googleapis.com/v1/projects/workout-app-e5db1/databases/(default)/documents/requests/${payload.coachId}
+
 export default {
   async contactCoach(context, payload) {
     const newRequest = {
       userEmail: payload.email,
       message: payload.message
     };
-    const response = await fetch(`https://vue-http-demo-85e9e.firebaseio.com/requests/${payload.coachId}.json`, {
+
+    console.log('newRequest', JSON.stringify(newRequest));
+    const response = await fetch(`https://firestore.googleapis.com/v1/projects/workout-app-e5db1/databases/(default)/documents/requests/${payload.coachId}`, {
       method: 'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newRequest)
     });
 
+    console.log(response);
     const responseData = await response.json();
 
     if (!response.ok) {
@@ -23,7 +30,7 @@ export default {
   },
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
-    const response = await fetch(`https://vue-http-demo-85e9e.firebaseio.com/requests/${coachId}.json`);
+    const response = await fetch(`https://firestore.googleapis.com/v1/projects/workout-app-e5db1/databases/(default)/documents/requests/${coachId}`);
     const responseData = await response.json();
 
     if (!response.ok) {
