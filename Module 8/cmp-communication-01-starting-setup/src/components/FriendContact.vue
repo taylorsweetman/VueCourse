@@ -1,21 +1,24 @@
 <template>
-  <li>
-    <h2>{{ name }} {{ isFavorite ? "(Favorite)" : "" }}</h2>
-    <button @click="toggleFav">Toggle Favorite</button>
-    <button @click="toggleDetails">
-      {{ detailsAreVisible ? "Hide" : "Show" }} Details
-    </button>
-    <ul v-if="detailsAreVisible">
-      <li>
-        <strong>Phone:</strong>
-        {{ phoneNumber }}
-      </li>
-      <li>
-        <strong>Email:</strong>
-        {{ emailAddress }}
-      </li>
-    </ul>
-  </li>
+  <ul>
+    <li>
+      <h2>{{ name }} {{ isFavorite ? "(Favorite)" : "" }}</h2>
+      <button @click="toggleFav">Toggle Favorite</button>
+      <button @click="toggleDetails">
+        {{ detailsAreVisible ? "Hide" : "Show" }} Details
+      </button>
+      <ul v-if="detailsAreVisible">
+        <li>
+          <strong>Phone:</strong>
+          {{ phoneNumber }}
+        </li>
+        <li>
+          <strong>Email:</strong>
+          {{ emailAddress }}
+        </li>
+      </ul>
+      <button @click="deleteFriend">Delete</button>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -44,7 +47,7 @@ export default {
       default: false,
     },
   },
-  emits: ["toggle-fav"],
+  emits: ["toggle-fav", "delete"],
   data() {
     return {
       detailsAreVisible: false,
@@ -56,6 +59,9 @@ export default {
     },
     toggleFav() {
       this.$emit("toggle-fav", this.id);
+    },
+    deleteFriend() {
+      this.$emit("delete", this.id);
     },
   },
 };
