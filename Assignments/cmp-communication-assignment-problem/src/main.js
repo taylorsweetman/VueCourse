@@ -1,6 +1,7 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 
-createApp({}).mount('#app')
+createApp(App).mount('#app')
 
 // Task 1: 
 // Add two components to the app: 
